@@ -178,6 +178,7 @@ public class Telas {
 
 
 
+
     }
     private void cadastroEnfermeiro () {
 
@@ -188,14 +189,65 @@ public class Telas {
         ensinoSuperior = instituicaoEnsinoSuperior("enfermeiro",entradaEnfermeiro);
         registro = registroProfissional("COFEN",entradaEnfermeiro);
 
-
+        System.out.println("Enfermeiro cadastrado com sucesso!\n");
 
     }
 
 
 
     private void cadastroMedico () {
-        cadastroPessoa("Médicos");
+        //cadastroPessoa("Médicos");
+
+        Scanner entradaMedico = new Scanner(System.in);
+        String ensinoSuperior, registro;
+        int especializacaoClinica = 0; //padrão para entrar no while
+        boolean ativo = false;
+        ensinoSuperior = instituicaoEnsinoSuperior("Medico",entradaMedico);
+        registro = registroProfissional("CRM",entradaMedico);
+
+
+        String [] menuEspecializacaoClinica = {
+                "============================================================",
+                "Escolha uma das opções de especialização clínica do médico: ",
+                "1 - Clínico Geral",
+                "2 - Em Atendimento",
+                "3 - Atendido",
+                "4 - Anestesista",
+                "5 - Dermatologia",
+                "6 - Ginecologia",
+                "7 - Neurologia",
+                "8 - Pediatria",
+        };
+
+        imprimirMenu(menuEspecializacaoClinica);
+        especializacaoClinica = entradaMedico.nextInt();
+        while (especializacaoClinica <1 || especializacaoClinica > 8){
+
+            System.out.println("Opção inválida\n");
+            imprimirMenu(menuEspecializacaoClinica);
+            especializacaoClinica = entradaMedico.nextInt();
+
+        }
+
+        System.out.println("O médico está ativo? [S/N]");
+
+        while (!ativo){
+            String convenio = entradaMedico.next().toUpperCase();
+            if(convenio.equals("S")){
+                ativo = true;
+            }else if(convenio.equals("N")){
+                ativo = false;
+                break;
+            }else{
+                System.out.println("Valor incorreto. Favor preencher S ou N");
+
+            }
+        }
+
+        System.out.println("Médico cadastrado com sucesso! \n");
+
+
+
 
     }
 
@@ -272,7 +324,7 @@ public class Telas {
     }
 
     private String registroProfissional(String registro, Scanner entrada){
-        System.out.println("Digite o +"+registro + "/UF do profissional: " );
+        System.out.println("Digite o "+registro + "/UF do profissional: " );
         return  entrada.next();
     }
 
