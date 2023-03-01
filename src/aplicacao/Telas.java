@@ -1,11 +1,12 @@
-import java.sql.Array;
+package aplicacao;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Telas {
 
-
+    Auxiliar auxilar = new Auxiliar();
 
     public static void main(String[] args) {
         Telas tela = new Telas();
@@ -61,7 +62,7 @@ public class Telas {
                 "Número selecionado: "
         };
 
-        imprimirMenu(menuInicial);
+        auxilar.imprimirMenu(menuInicial);
 
         int opcaoEntrada = entradaOpcao.nextInt();
         if (opcaoEntrada < 1 || opcaoEntrada > 6){
@@ -81,7 +82,7 @@ public class Telas {
                 "Digite as informações pedidas abaixo: "
         };
 
-        imprimirMenu(cadastro);
+        auxilar.imprimirMenu(cadastro);
         String[] pessoa = new String[5];
         System.out.print("Nome completo: ");
         pessoa[0] = entradaDados.nextLine();
@@ -124,7 +125,7 @@ public class Telas {
         while (possuiAlergia){
             String alergia = entradaPaciente.next().toUpperCase();
             if(alergia.equals("S")){
-                List<String> alergias = new ArrayList<>(preencheAtributoMultivalorado("Alergia"));
+                List<String> alergias = new ArrayList<>(auxilar.preencheAtributoMultivalorado("Alergia"));
                 possuiAlergia = false;
             }else if(alergia.equals("N")){
                 possuiAlergia = false;
@@ -138,7 +139,7 @@ public class Telas {
         while (possuiCuidados){
             String cuidados = entradaPaciente.next().toUpperCase();
             if(cuidados.equals("S")){
-                List<String> cuidadosEspeciais = new ArrayList<>(preencheAtributoMultivalorado("cuidado especial"));
+                List<String> cuidadosEspeciais = new ArrayList<>(auxilar.preencheAtributoMultivalorado("cuidado especial"));
                 possuiCuidados = false;
             }else if(cuidados.equals("N")){
                 possuiCuidados = false;
@@ -152,7 +153,7 @@ public class Telas {
         while (possuiConvenio){
             String convenio = entradaPaciente.next().toUpperCase();
             if(convenio.equals("S")){
-                List<String> convenios = new ArrayList<>(preencheConvenio());
+                List<String> convenios = new ArrayList<>(auxilar.preencheConvenio());
                 possuiConvenio = false;
             }else if(convenio.equals("N")){
                 possuiConvenio = false;
@@ -160,21 +161,24 @@ public class Telas {
                 System.out.println("Valor incorreto. Favor preencher S ou N");
 
             }
+
+
         }
 
 
 
-        imprimirMenu(menuStatusAtendimento);
+        auxilar.imprimirMenu(menuStatusAtendimento);
         statusAtendimento = entradaPaciente.nextInt();
         while (statusAtendimento <1 || statusAtendimento > 4){
 
             System.out.println("Opção inválida\n");
-            imprimirMenu(menuStatusAtendimento);
+            auxilar.imprimirMenu(menuStatusAtendimento);
             statusAtendimento = entradaPaciente.nextInt();
 
         }
 
-        System.out.println("Paciente cadastrado com sucesso!");
+        System.out.println("Paciente cadastrado com sucesso!\n");
+        this.inicio();
 
 
 
@@ -186,10 +190,12 @@ public class Telas {
         //cadastroPessoa("Enfermeiros");
         String ensinoSuperior, registro;
 
-        ensinoSuperior = instituicaoEnsinoSuperior("enfermeiro",entradaEnfermeiro);
-        registro = registroProfissional("COFEN",entradaEnfermeiro);
+        ensinoSuperior = auxilar.instituicaoEnsinoSuperior("enfermeiro",entradaEnfermeiro);
+        registro = auxilar.registroProfissional("COFEN",entradaEnfermeiro);
 
         System.out.println("Enfermeiro cadastrado com sucesso!\n");
+
+        this.inicio();
 
     }
 
@@ -202,8 +208,8 @@ public class Telas {
         String ensinoSuperior, registro;
         int especializacaoClinica = 0; //padrão para entrar no while
         boolean ativo = false;
-        ensinoSuperior = instituicaoEnsinoSuperior("Medico",entradaMedico);
-        registro = registroProfissional("CRM",entradaMedico);
+        ensinoSuperior = auxilar.instituicaoEnsinoSuperior("Medico",entradaMedico);
+        registro = auxilar.registroProfissional("CRM",entradaMedico);
 
 
         String [] menuEspecializacaoClinica = {
@@ -219,12 +225,12 @@ public class Telas {
                 "8 - Pediatria",
         };
 
-        imprimirMenu(menuEspecializacaoClinica);
+        auxilar.imprimirMenu(menuEspecializacaoClinica);
         especializacaoClinica = entradaMedico.nextInt();
         while (especializacaoClinica <1 || especializacaoClinica > 8){
 
             System.out.println("Opção inválida\n");
-            imprimirMenu(menuEspecializacaoClinica);
+            auxilar.imprimirMenu(menuEspecializacaoClinica);
             especializacaoClinica = entradaMedico.nextInt();
 
         }
@@ -246,6 +252,8 @@ public class Telas {
 
         System.out.println("Médico cadastrado com sucesso! \n");
 
+        this.inicio();
+
 
 
 
@@ -263,69 +271,6 @@ public class Telas {
 
     }
 
-    private void imprimirMenu(String[] menu){
-        for (String linha: menu) {
-            System.out.println(linha.toString());
-        }
-    }
 
-    private List<String> preencheAtributoMultivalorado(String tipoAtributo){
-        List<String> lista = new ArrayList<>();
-        Scanner entradaLista = new Scanner(System.in);
-        String item = "";
-
-        while (!item.equals("FIM")){
-
-            if (tipoAtributo.equals("Alergia")){
-                System.out.println("Adicione o nome da "+tipoAtributo+ ": ");
-
-            }else{
-                System.out.println("Adicione o nome do "+ tipoAtributo+ ": ");
-
-            }
-            item = entradaLista.next().toUpperCase();
-            if(!item.equals("FIM")){
-                lista.add(item);
-                System.out.println("Item adicionado com sucesso!\n ");
-            }
-            }
-        System.out.println( tipoAtributo+ "adicionado(s)(as): "+ lista +"\n");
-        return lista;
-    }
-
-
-    private List<String> preencheConvenio(){
-        List<String> listaConvenio = new ArrayList<>();
-        Scanner entradaConvenio = new Scanner(System.in);
-        String item = "";
-
-        System.out.println("Nome do Convênio: ");
-        item = entradaConvenio.next(); listaConvenio.add(item.toUpperCase());
-
-        System.out.println("Número do Convênio: ");
-        item = entradaConvenio.next(); listaConvenio.add(item);
-
-        System.out.println("Validade do Convênio: ");
-        item = entradaConvenio.next(); listaConvenio.add(item);
-
-        System.out.println(
-                "O convênio "+listaConvenio.get(0)+
-                " com o número "+listaConvenio.get(1) +
-                " e validade em " + listaConvenio.get(2) +
-                " foi adicionado com sucesso!\n");
-
-        return listaConvenio;
-    }
-
-    private String instituicaoEnsinoSuperior(String profissao, Scanner entrada) {
-        System.out.println("O "+ profissao+ " se formou em qual Instituição de Ensino? ");
-
-        return  entrada.next();
-    }
-
-    private String registroProfissional(String registro, Scanner entrada){
-        System.out.println("Digite o "+registro + "/UF do profissional: " );
-        return  entrada.next();
-    }
 
 }
