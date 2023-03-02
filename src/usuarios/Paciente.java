@@ -11,7 +11,7 @@ public final class Paciente extends Pessoa{
     private String statusAtendimento;
     private int contador;
 
-    public Paciente(String id,
+    public Paciente(int id,
                     String nomeCompleto,
                     String genero,
                     String dataNascimento,
@@ -66,25 +66,25 @@ public final class Paciente extends Pessoa{
         StringBuilder exibir = new StringBuilder();
         exibir.append("Dados{")
                 .append("id: ").append(super.getId())
-                .append("Nome: ").append(super.getNomeCompleto())
-                .append("Gênero: ").append(super.getGenero())
-                .append("Data de Nascimento: ").append(super.getDataNascimento())
-                .append("CPF: ").append(super.getCPF())
-                .append("Telefone ").append(super.getTelefone())
-                .append("Contato para Emergência: ").append(getContatoEmergencia())
-                .append("Status de Atendimento: ").append(getStatusAtendimento())
-                .append("Contador: ").append(getContador())
-                .append("Status de Atendimento: ").append(getStatusAtendimento());
+                .append(" Nome: ").append(super.getNomeCompleto())
+                .append(" Gênero: ").append(super.getGenero())
+                .append(" Data de Nascimento: ").append(super.getDataNascimento())
+                .append(" CPF: ").append(super.getCPF())
+                .append(" Telefone ").append(super.getTelefone())
+                .append(" Contato para Emergência: ").append(getContatoEmergencia())
+                .append(" Status de Atendimento: ").append(getStatusAtendimento())
+                .append(" Contador: ").append(getContador())
+                .append(" Status de Atendimento: ").append(getStatusAtendimento());
 
         if (this.alergias != null && !this.alergias.isEmpty()) {
-            exibir.append("Lista de alergias: (").append(getAlergias()).append(")\n");
+            exibir.append(" Lista de alergias: (").append(getAlergias()).append(")\n");
         }
         if (this.cuidados != null && !this.cuidados.isEmpty()) {
-            exibir.append("Lista de cuidados: (").append(getCuidados()).append(")\n");
+            exibir.append(" Lista de cuidados: (").append(getCuidados()).append(")\n");
         }
 
         if (this.convenio != null && !this.convenio.isEmpty()) {
-            exibir.append("Dados do convênio: (").append(getConvenio()).append(")\n");
+            exibir.append(" Dados do convênio: (").append(getConvenio()).append(")\n");
         }
 
         exibir.append(("}"));

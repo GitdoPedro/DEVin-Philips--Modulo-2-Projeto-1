@@ -30,10 +30,10 @@ public class Auxiliar {
             item = entradaLista.next().toUpperCase();
             if(!item.equals("FIM")){
                 lista.add(item);
-                System.out.println("Item adicionado com sucesso!\n ");
+                System.out.println("Item adicionado com sucesso!\n");
             }
         }
-        System.out.println( tipoAtributo+ "adicionado(s)(as): "+ lista +"\n");
+        System.out.println( tipoAtributo+ " adicionado(s)(as): "+ lista +"\n");
         return lista;
     }
 

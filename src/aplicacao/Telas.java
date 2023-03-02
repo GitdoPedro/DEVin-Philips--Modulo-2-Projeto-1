@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Telas {
 
     Pessoa pessoa;
-    Auxiliar auxilar = new Auxiliar();
+    Auxiliar auxiliar = new Auxiliar();
 
 
     public static void main(String[] args) {
@@ -66,7 +66,7 @@ public class Telas {
                 "Número selecionado: "
         };
 
-        auxilar.imprimirMenu(menuInicial);
+        auxiliar.imprimirMenu(menuInicial);
 
         int opcaoEntrada = entradaOpcao.nextInt();
         if (opcaoEntrada < 1 || opcaoEntrada > 6){
@@ -86,7 +86,7 @@ public class Telas {
                 "Digite as informações pedidas abaixo: "
         };
 
-        auxilar.imprimirMenu(cadastro);
+        auxiliar.imprimirMenu(cadastro);
         String[] pessoa = new String[5];
         System.out.print("Nome completo: ");
         pessoa[0] = entradaDados.nextLine();
@@ -107,13 +107,19 @@ public class Telas {
     }
 
     private void cadastroPaciente() {
+        String[] pessoaPaciente = cadastroPessoa("Pacientes");
         String contatoEmergiancia;
-        boolean possuiAlergia  = true;
+        boolean possuiAlergia = true;
         boolean possuiCuidados = true;
         boolean possuiConvenio = true;
-        int statusAtendimento = 0; //padrão para entrar no while
+        int statusAtendimentoCod = 0; //padrão para entrar no while
+        String statusAtendimento = null;
+        List<String> alergias = null;
+        List<String> cuidadosEspeciais = null;
+        List<String> convenios = null;
         Scanner entradaPaciente = new Scanner(System.in);
-        String [] menuStatusAtendimento = {
+
+        String[] menuStatusAtendimento = {
                 "============================================================",
                 "Escolha uma das opções de status de atendimento do paciente",
                 "1 - Aguardando Atendimento",
@@ -121,72 +127,112 @@ public class Telas {
                 "3 - Atendido",
                 "4 - Não Atendido\n"
         };
-        //cadastroPessoa("Pacientes");
+
         System.out.println("Contato Para Emergencia: ");
-        contatoEmergiancia  = entradaPaciente.next();
+        contatoEmergiancia = entradaPaciente.next();
 
         System.out.println("Possui alergias? [S/N]");
-        while (possuiAlergia){
+
+        while (possuiAlergia) {
             String alergia = entradaPaciente.next().toUpperCase();
-            if(alergia.equals("S")){
-                List<String> alergias = new ArrayList<>(auxilar.preencheAtributoMultivalorado("Alergia"));
+            if (alergia.equals("S")) {
+                alergias = new ArrayList<>(auxiliar.preencheAtributoMultivalorado("Alergia"));
                 possuiAlergia = false;
-            }else if(alergia.equals("N")){
+            } else if (alergia.equals("N")) {
                 possuiAlergia = false;
-            }else{
+            } else {
                 System.out.println("Valor incorreto. Favor preencher S ou N");
 
             }
         }
 
         System.out.println("Possui cuidados especiais? [S/N]");
-        while (possuiCuidados){
-            String cuidados = entradaPaciente.next().toUpperCase();
-            if(cuidados.equals("S")){
-                List<String> cuidadosEspeciais = new ArrayList<>(auxilar.preencheAtributoMultivalorado("cuidado especial"));
+        String cuidados = null;
+
+        while (possuiCuidados) {
+            cuidados = entradaPaciente.next().toUpperCase();
+            if (cuidados.equals("S")) {
+                cuidadosEspeciais = new ArrayList<>(auxiliar.preencheAtributoMultivalorado("cuidado especial"));
                 possuiCuidados = false;
-            }else if(cuidados.equals("N")){
+            } else if (cuidados.equals("N")) {
                 possuiCuidados = false;
-            }else{
+            } else {
                 System.out.println("Valor incorreto. Favor preencher S ou N");
 
             }
         }
 
         System.out.println("Possui convênio? [S/N]");
-        while (possuiConvenio){
+
+        while (possuiConvenio) {
             String convenio = entradaPaciente.next().toUpperCase();
-            if(convenio.equals("S")){
-                List<String> convenios = new ArrayList<>(auxilar.preencheConvenio());
+            if (convenio.equals("S")) {
+                convenios = new ArrayList<>(auxiliar.preencheConvenio());
                 possuiConvenio = false;
-            }else if(convenio.equals("N")){
+            } else if (convenio.equals("N")) {
                 possuiConvenio = false;
-            }else{
+            } else {
                 System.out.println("Valor incorreto. Favor preencher S ou N");
 
             }
 
 
-
         }
 
-        auxilar.imprimirMenu(menuStatusAtendimento);
-        statusAtendimento = entradaPaciente.nextInt();
-        while (statusAtendimento <1 || statusAtendimento > 4){
+        auxiliar.imprimirMenu(menuStatusAtendimento);
+        statusAtendimentoCod = entradaPaciente.nextInt();
+        while (statusAtendimentoCod < 1 || statusAtendimentoCod > 4) {
 
             System.out.println("Opção inválida\n");
-            auxilar.imprimirMenu(menuStatusAtendimento);
-            statusAtendimento = entradaPaciente.nextInt();
+            auxiliar.imprimirMenu(menuStatusAtendimento);
+            statusAtendimentoCod = entradaPaciente.nextInt();
 
         }
 
+        switch (statusAtendimentoCod) {
+            case 1:
+                statusAtendimento = "Aguardando Atendimento";
+                break;
+            case 2:
+                statusAtendimento = "Em Atendimento";
+                break;
+            case 3:
+                statusAtendimento = "Atendido";
+                break;
+            case 4:
+                statusAtendimento = "Não Atendido";
+                break;
+            default:
+                System.out.println("opção inválida");
+        }
 
-        this.pessoa = new Paciente(auxilar.identificador,);
+        this.pessoa = new Paciente(
+                auxiliar.identificador,
+                pessoaPaciente[0],
+                pessoaPaciente[1],
+                pessoaPaciente[2],
+                pessoaPaciente[3],
+                pessoaPaciente[4],
+                contatoEmergiancia,
+                statusAtendimento
+        );
+
+        auxiliar.incrementaIdentificador();
+
+        if (alergias != null && !alergias.isEmpty()) {
+            ((Paciente)this.pessoa).setAlergias(alergias);
+        }
+        if (cuidadosEspeciais != null && !cuidadosEspeciais.isEmpty()) {
+            ((Paciente)this.pessoa).setCuidados(cuidadosEspeciais);
+        }
+
+        if (convenios != null && !convenios.isEmpty()) {
+            ((Paciente)this.pessoa).setConvenio(convenios);
+        }
 
         System.out.println("Paciente cadastrado com sucesso!\n");
+        System.out.println(((Paciente)this.pessoa).toString());
         this.inicio();
-
-
 
 
     }
@@ -196,15 +242,14 @@ public class Telas {
         //cadastroPessoa("Enfermeiros");
         String ensinoSuperior, registro;
 
-        ensinoSuperior = auxilar.instituicaoEnsinoSuperior("enfermeiro",entradaEnfermeiro);
-        registro = auxilar.registroProfissional("COFEN",entradaEnfermeiro);
+        ensinoSuperior = auxiliar.instituicaoEnsinoSuperior("enfermeiro",entradaEnfermeiro);
+        registro = auxiliar.registroProfissional("COFEN",entradaEnfermeiro);
 
         System.out.println("Enfermeiro cadastrado com sucesso!\n");
 
         this.inicio();
 
     }
-
 
 
     private void cadastroMedico () {
@@ -214,8 +259,8 @@ public class Telas {
         String ensinoSuperior, registro;
         int especializacaoClinica = 0; //padrão para entrar no while
         boolean ativo = false;
-        ensinoSuperior = auxilar.instituicaoEnsinoSuperior("Medico",entradaMedico);
-        registro = auxilar.registroProfissional("CRM",entradaMedico);
+        ensinoSuperior = auxiliar.instituicaoEnsinoSuperior("Medico",entradaMedico);
+        registro = auxiliar.registroProfissional("CRM",entradaMedico);
 
 
         String [] menuEspecializacaoClinica = {
@@ -231,12 +276,12 @@ public class Telas {
                 "8 - Pediatria",
         };
 
-        auxilar.imprimirMenu(menuEspecializacaoClinica);
+        auxiliar.imprimirMenu(menuEspecializacaoClinica);
         especializacaoClinica = entradaMedico.nextInt();
         while (especializacaoClinica <1 || especializacaoClinica > 8){
 
             System.out.println("Opção inválida\n");
-            auxilar.imprimirMenu(menuEspecializacaoClinica);
+            auxiliar.imprimirMenu(menuEspecializacaoClinica);
             especializacaoClinica = entradaMedico.nextInt();
 
         }
