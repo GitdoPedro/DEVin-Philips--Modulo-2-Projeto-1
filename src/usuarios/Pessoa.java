@@ -1,6 +1,8 @@
 package usuarios;
 
 public abstract class  Pessoa {
+
+
     private String id;
     private String nomeCompleto;
     private String genero;
@@ -12,6 +14,31 @@ public abstract class  Pessoa {
         this.id = id ; this.nomeCompleto  = nomeCompleto ; this.genero = genero;
         this.dataNascimento = dataNascimento ; this.CPF = CPF ; this.telefone = telefone;
 
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public String getTelefone() {
+        return telefone;
     }
 
 
