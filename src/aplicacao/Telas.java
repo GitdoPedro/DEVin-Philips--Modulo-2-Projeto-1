@@ -239,13 +239,29 @@ public class Telas {
     private void cadastroEnfermeiro () {
 
         Scanner entradaEnfermeiro = new Scanner(System.in);
-        //cadastroPessoa("Enfermeiros");
+        String[] pessoaEnfermeiro = cadastroPessoa("Enfermeiro");
         String ensinoSuperior, registro;
 
         ensinoSuperior = auxiliar.instituicaoEnsinoSuperior("enfermeiro",entradaEnfermeiro);
         registro = auxiliar.registroProfissional("COFEN",entradaEnfermeiro);
 
+
+        this.pessoa = new Enfermeiro(
+                auxiliar.identificador,
+                pessoaEnfermeiro[0],
+                pessoaEnfermeiro[1],
+                pessoaEnfermeiro[2],
+                pessoaEnfermeiro[3],
+                pessoaEnfermeiro[4],
+                ensinoSuperior,
+                registro
+        );
+
+        auxiliar.incrementaIdentificador();
+
         System.out.println("Enfermeiro cadastrado com sucesso!\n");
+        System.out.println(((Enfermeiro)this.pessoa).toString());
+
 
         this.inicio();
 
@@ -253,11 +269,12 @@ public class Telas {
 
 
     private void cadastroMedico () {
-        //cadastroPessoa("Médicos");
+        String[] pessoaMedico = cadastroPessoa("Médico");
 
         Scanner entradaMedico = new Scanner(System.in);
         String ensinoSuperior, registro;
-        int especializacaoClinica = 0; //padrão para entrar no while
+        int especializacaoClinicaCod = 0; //padrão para entrar no while
+        String especializacaoClinica = null;
         boolean ativo = false;
         ensinoSuperior = auxiliar.instituicaoEnsinoSuperior("Medico",entradaMedico);
         registro = auxiliar.registroProfissional("CRM",entradaMedico);
@@ -277,22 +294,22 @@ public class Telas {
         };
 
         auxiliar.imprimirMenu(menuEspecializacaoClinica);
-        especializacaoClinica = entradaMedico.nextInt();
-        while (especializacaoClinica <1 || especializacaoClinica > 8){
+        especializacaoClinicaCod = entradaMedico.nextInt();
+        while (especializacaoClinicaCod <1 || especializacaoClinicaCod > 8){
 
             System.out.println("Opção inválida\n");
             auxiliar.imprimirMenu(menuEspecializacaoClinica);
-            especializacaoClinica = entradaMedico.nextInt();
+            especializacaoClinicaCod = entradaMedico.nextInt();
 
         }
 
         System.out.println("O médico está ativo? [S/N]");
 
         while (!ativo){
-            String convenio = entradaMedico.next().toUpperCase();
-            if(convenio.equals("S")){
+            String estadoSistema = entradaMedico.next().toUpperCase();
+            if(estadoSistema.equals("S")){
                 ativo = true;
-            }else if(convenio.equals("N")){
+            }else if(estadoSistema.equals("N")){
                 ativo = false;
                 break;
             }else{
@@ -301,11 +318,57 @@ public class Telas {
             }
         }
 
-        System.out.println("Médico cadastrado com sucesso! \n");
+        switch (especializacaoClinicaCod) {
+            case 1:
+                especializacaoClinica = "Clínico Geral";
+                break;
+            case 2:
+                especializacaoClinica = "Anestesista";
+                break;
+            case 3:
+                especializacaoClinica = "Dermatologia";
+                break;
+            case 4:
+                especializacaoClinica = "Ginecologia";
+                break;
+            case 5:
+                especializacaoClinica = "Neurologia";
+                break;
+            case 6:
+                especializacaoClinica = "Pediatria";
+                break;
+            case 7:
+                especializacaoClinica = "Psiquiatria";
+                break;
+            case 8:
+                especializacaoClinica = "Ortopedia";
+                break;
+            default:
+                System.out.println("opção inválida");
+        }
+
+        this.pessoa = new Medico(
+                auxiliar.identificador,
+                pessoaMedico[0],
+                pessoaMedico[1],
+                pessoaMedico[2],
+                pessoaMedico[3],
+                pessoaMedico[4],
+                ensinoSuperior,
+                registro,
+                especializacaoClinica,
+                ativo
+
+
+        );
+
+        auxiliar.incrementaIdentificador();
+
+        System.out.println("Medico cadastrado com sucesso!\n");
+        System.out.println(((Medico)this.pessoa).toString());
+
 
         this.inicio();
-
-
 
 
     }
