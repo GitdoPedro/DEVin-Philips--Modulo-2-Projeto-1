@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Auxiliar {
 
+    protected int identificador = 0;
     protected void imprimirMenu(String[] menu){
         for (String linha: menu) {
             System.out.println(linha.toString());
@@ -69,5 +70,9 @@ public class Auxiliar {
     protected String registroProfissional(String registro, Scanner entrada){
         System.out.println("Digite o "+registro + "/UF do profissional: " );
         return  entrada.next();
+    }
+
+    protected void incrementaIdentificador(){
+        this.identificador +=1;
     }
 }

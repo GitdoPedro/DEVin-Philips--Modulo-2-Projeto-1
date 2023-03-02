@@ -3,7 +3,7 @@ package usuarios;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paciente extends Pessoa{
+public final class Paciente extends Pessoa{
     private String contatoEmergencia;
     private List<String> alergias = new ArrayList<>();
     private List<String> cuidados = new ArrayList<>();
@@ -89,8 +89,10 @@ public class Paciente extends Pessoa{
 
         exibir.append(("}"));
         return exibir.toString();
+    }
 
-
+    private void incrementaContador(){
+        this.contador+=1;
 
     }
 }

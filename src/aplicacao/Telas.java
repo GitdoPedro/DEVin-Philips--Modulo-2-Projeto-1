@@ -1,12 +1,16 @@
 package aplicacao;
 
+import usuarios.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Telas {
 
+    Pessoa pessoa;
     Auxiliar auxilar = new Auxiliar();
+
 
     public static void main(String[] args) {
         Telas tela = new Telas();
@@ -163,9 +167,8 @@ public class Telas {
             }
 
 
+
         }
-
-
 
         auxilar.imprimirMenu(menuStatusAtendimento);
         statusAtendimento = entradaPaciente.nextInt();
@@ -176,6 +179,9 @@ public class Telas {
             statusAtendimento = entradaPaciente.nextInt();
 
         }
+
+
+        this.pessoa = new Paciente(auxilar.identificador,);
 
         System.out.println("Paciente cadastrado com sucesso!\n");
         this.inicio();
