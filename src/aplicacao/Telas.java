@@ -1,6 +1,7 @@
 package aplicacao;
 
 import usuarios.*;
+import relatorios.Hospital;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,15 +120,6 @@ public class Telas {
         List<String> convenios = null;
         Scanner entradaPaciente = new Scanner(System.in);
 
-        String[] menuStatusAtendimento = {
-                "============================================================",
-                "Escolha uma das opções de status de atendimento do paciente",
-                "1 - Aguardando Atendimento",
-                "2 - Em Atendimento",
-                "3 - Atendido",
-                "4 - Não Atendido\n"
-        };
-
         System.out.println("Contato Para Emergencia: ");
         contatoEmergiancia = entradaPaciente.next();
 
@@ -178,33 +170,7 @@ public class Telas {
 
 
         }
-
-        auxiliar.imprimirMenu(menuStatusAtendimento);
-        statusAtendimentoCod = entradaPaciente.nextInt();
-        while (statusAtendimentoCod < 1 || statusAtendimentoCod > 4) {
-
-            System.out.println("Opção inválida\n");
-            auxiliar.imprimirMenu(menuStatusAtendimento);
-            statusAtendimentoCod = entradaPaciente.nextInt();
-
-        }
-
-        switch (statusAtendimentoCod) {
-            case 1:
-                statusAtendimento = "Aguardando Atendimento";
-                break;
-            case 2:
-                statusAtendimento = "Em Atendimento";
-                break;
-            case 3:
-                statusAtendimento = "Atendido";
-                break;
-            case 4:
-                statusAtendimento = "Não Atendido";
-                break;
-            default:
-                System.out.println("opção inválida");
-        }
+        statusAtendimento = auxiliar.selecionaStatusPaciente(false);
 
         this.pessoa = new Paciente(
                 auxiliar.identificador,

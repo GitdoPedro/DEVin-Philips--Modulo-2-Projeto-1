@@ -1,4 +1,5 @@
 package usuarios;
+import aplicacao.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ public final class Paciente extends Pessoa{
     private List<String> convenio = new ArrayList<>();
     private String statusAtendimento;
     private int contador;
+
+    Auxiliar auxiliar = new Auxiliar();
 
     public Paciente(int id,
                     String nomeCompleto,
@@ -95,5 +98,10 @@ public final class Paciente extends Pessoa{
         this.contador+=1;
 
     }
+
+    private void atualizaStatusAtendimento(){
+        this.statusAtendimento =  auxiliar.selecionaStatusPaciente(true);
+    }
+
 }
 

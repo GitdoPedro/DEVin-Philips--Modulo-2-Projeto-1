@@ -75,4 +75,42 @@ public class Auxiliar {
     protected void incrementaIdentificador(){
         this.identificador +=1;
     }
+
+    public String selecionaStatusPaciente(boolean alteracao){
+        String msgAlteracao = "Status de atendimento atualizado com sucesso!\n";
+        Scanner entrada = new Scanner(System.in);
+        String[] menuStatusAtendimento = {
+                "============================================================",
+                "Escolha uma das opções de status de atendimento do paciente",
+                "1 - Aguardando Atendimento",
+                "2 - Em Atendimento",
+                "3 - Atendido",
+                "4 - Não Atendido\n"
+        };
+        imprimirMenu(menuStatusAtendimento);
+        int statusAtendimentoCod = entrada.nextInt();
+        while (statusAtendimentoCod < 1 || statusAtendimentoCod > 4) {
+
+            System.out.println("Opção inválida\n");
+            imprimirMenu(menuStatusAtendimento);
+            statusAtendimentoCod = entrada.nextInt();
+
+        }
+        if(alteracao){System.out.println(msgAlteracao);};
+        switch (statusAtendimentoCod) {
+            case 1:
+                return "Aguardando Atendimento";
+            case 2:
+                return "Em Atendimento";
+            case 3:
+                return "Atendido";
+            case 4:
+                return "Não Atendido";
+            default:
+                return "opção inválida";
+
+        }
+
+    }
+
 }
