@@ -437,42 +437,64 @@ public class Telas {
     private void relatorioPacientes() {
 
         int relatorioPacienteCod = 0;
-        Scanner entradaRelatorios = new Scanner(System.in);
-        String [] relatorios = {
-                "============================================================",
-                "Escolha uma opção para impressão na tela: ",
-                "1 - Listagem de Pessoas",
-                "2 - Relatório dos Pacientes",
-                "3 - Relatório dos Médicos"
+        Scanner entradaRelatorioPaciente = new Scanner(System.in);
+        String [] relatorioPaciente = {
+                "================================================================",
+                "Filtre os pacientes através de uma das opções abaixo: ",
+                "1 - Aguardando Atendimento",
+                "2 - Em Atendimento",
+                "3 - Atendido",
+                "4 - Não Atendido",
+                "5 - Todos",
+
         };
 
-        auxiliar.imprimirMenu(relatorios);
-        relatorioPacienteCod = entradaRelatorios.nextInt();
-        while (relatorioPacienteCod <1 || relatorioPacienteCod > 3){
+        auxiliar.imprimirMenu(relatorioPaciente);
+        relatorioPacienteCod = entradaRelatorioPaciente.nextInt();
+        while (relatorioPacienteCod <1 || relatorioPacienteCod > 5){
 
             System.out.println("Opção inválida\n");
-            auxiliar.imprimirMenu(relatorios);
-            relatorioPacienteCod = entradaRelatorios.nextInt();
+            auxiliar.imprimirMenu(relatorioPaciente);
+            relatorioPacienteCod = entradaRelatorioPaciente.nextInt();
 
         }
 
-        switch (relatorioPacienteCod) {
-            case 1:
-                listagemPessoas();
-                break;
-            case 2:
-                relatorioPacientes();
-                break;
-            case 3:
-                relatorioMedicos();
-                break;
+            hospital.relatorioPaciente(relatorioPacienteCod);
 
-            default:
-                System.out.println("opção inválida");
-        }
+            this.inicio() ;
     }
 
     private void relatorioMedicos() {
+
+        int relatorioMedicosCod = 0;
+        Scanner entradaRelatorioMedico = new Scanner(System.in);
+        String [] relatorioMedicos = {
+                "================================================================",
+                "Filtre os médicos através de uma das especializações abaixo: ",
+                "1 - Clínico Geral",
+                "2 - Anestesista",
+                "3 - Dermatologia",
+                "4 - Ginecologia",
+                "5 - Neurologia",
+                "6 - Pediatria",
+                "7 - Psiquiatria",
+                "8 - Ortopedia",
+                "9 - Todos"
+
+        };
+
+        auxiliar.imprimirMenu(relatorioMedicos);
+        relatorioMedicosCod = entradaRelatorioMedico.nextInt();
+        while (relatorioMedicosCod <1 || relatorioMedicosCod > 9){
+
+            System.out.println("Opção inválida\n");
+            auxiliar.imprimirMenu(relatorioMedicos);
+            relatorioMedicosCod = entradaRelatorioMedico.nextInt();
+
+        }
+
+        hospital.relatorioMedico(relatorioMedicosCod);
+
     }
 
 
