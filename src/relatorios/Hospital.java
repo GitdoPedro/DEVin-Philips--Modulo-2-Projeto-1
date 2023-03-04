@@ -163,19 +163,85 @@ public class Hospital {
     }
 
     public void relatorioMedico(int especializacao){
-        List<String[]> pacienteMedico = new ArrayList<String[]>();
+        List<String[]> relatorioMedico = new ArrayList<String[]>();
+        String nomeEspecializacao;
         switch (especializacao) {
             case 1:
                 for (Medico medico : this.medicos) {
-
+                    nomeEspecializacao = "Clínico Geral";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
                 }
+                break;
+            case 2:
+                for (Medico medico : this.medicos) {
+                    nomeEspecializacao = "Anestesista";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
+                }
+                break;
+            case 3:
+                for (Medico medico : this.medicos) {
+                    nomeEspecializacao = "Dermatologia";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
+                }
+                break;
+            case 4:
+                for (Medico medico : this.medicos) {
+                    nomeEspecializacao = "Ginecologia";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
+                }
+                break;
+            case 5:
+                for (Medico medico : this.medicos) {
+                    nomeEspecializacao = "Neurologia";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
+                }
+                break;
+            case 6:
+                for (Medico medico : this.medicos) {
+                    nomeEspecializacao = "Pediatria";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
+                }
+                break;
+            case 7:
+                for (Medico medico : this.medicos) {
+                    nomeEspecializacao = "Psiquiatria";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
+                }
+                break;
+            case 8:
+                for (Medico medico : this.medicos) {
+                    nomeEspecializacao = "Ortopedia";
+                    if(medico.getEspecializacaoClinica().equals(nomeEspecializacao)){
+                        relatorioMedico.add(getInfoRelatorioMedico(medico,nomeEspecializacao));
+                    }
+                }
+                break;
+            case 9:
+                for (Medico medico : this.medicos) {
+                    relatorioMedico.add(getInfoRelatorioMedico(medico,medico.getEspecializacaoClinica()));
+                    }
                 break;
 
 
             default:
                 System.out.println("Opção inválida");
+                break;
         }
-        imprimirRelatorioPaciente(pacienteRelatorio);
+        imprimirRelatorioMedico(relatorioMedico);
 
 
     }

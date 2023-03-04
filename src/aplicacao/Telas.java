@@ -494,6 +494,7 @@ public class Telas {
         }
 
         hospital.relatorioMedico(relatorioMedicosCod);
+        this.relatorioMedicos();
 
     }
 
