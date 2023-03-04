@@ -11,6 +11,7 @@ public class Telas {
 
     Pessoa pessoa;
     Auxiliar auxiliar = new Auxiliar();
+    Hospital hospital = new Hospital();
 
 
     public static void main(String[] args) {
@@ -197,6 +198,7 @@ public class Telas {
         }
 
         System.out.println("Paciente cadastrado com sucesso!\n");
+        hospital.addPacientes(((Paciente)this.pessoa));
         System.out.println(((Paciente)this.pessoa).toString());
         this.inicio();
 
@@ -226,6 +228,7 @@ public class Telas {
         auxiliar.incrementaIdentificador();
 
         System.out.println("Enfermeiro cadastrado com sucesso!\n");
+        hospital.addEnfermeiro(((Enfermeiro)this.pessoa));
         System.out.println(((Enfermeiro)this.pessoa).toString());
 
 
@@ -331,6 +334,7 @@ public class Telas {
         auxiliar.incrementaIdentificador();
 
         System.out.println("Medico cadastrado com sucesso!\n");
+        hospital.addMedicos(((Medico)this.pessoa));
         System.out.println(((Medico)this.pessoa).toString());
 
 
@@ -348,9 +352,128 @@ public class Telas {
     }
 
     void relatorios () {
+        int entradaRelatoriosCod = 0;
+        Scanner entradaRelatorios = new Scanner(System.in);
+        String [] relatorios = {
+                "============================================================",
+                "Escolha uma opção para impressão na tela: ",
+                "1 - Listagem de Pessoas",
+                "2 - Relatório dos Pacientes",
+                "3 - Relatório dos Médicos"
+        };
+
+        auxiliar.imprimirMenu(relatorios);
+        entradaRelatoriosCod = entradaRelatorios.nextInt();
+        while (entradaRelatoriosCod <1 || entradaRelatoriosCod > 3){
+
+            System.out.println("Opção inválida\n");
+            auxiliar.imprimirMenu(relatorios);
+            entradaRelatoriosCod = entradaRelatorios.nextInt();
+
+        }
+
+        switch (entradaRelatoriosCod) {
+            case 1:
+                listagemPessoas();
+                break;
+            case 2:
+                relatorioPacientes();
+                break;
+            case 3:
+                relatorioMedicos();
+                break;
+
+            default:
+                System.out.println("opção inválida");
+        }
+
+
 
     }
 
+    private void listagemPessoas() {
+        int entradaListagemPessoasCod = 0;
+        Scanner entradaListagemPessoas = new Scanner(System.in);
+        String [] litagemPessoas = {
+                "============================================================",
+                "Escolha uma opção para impressão na tela: ",
+                "1 - Pacientes",
+                "2 - Enfermeiros",
+                "3 - Médicos",
+                "4 - Todos"
+        };
+
+        auxiliar.imprimirMenu(litagemPessoas);
+        entradaListagemPessoasCod = entradaListagemPessoas.nextInt();
+        while (entradaListagemPessoasCod <1 || entradaListagemPessoasCod > 4){
+
+            System.out.println("Opção inválida\n");
+            auxiliar.imprimirMenu(litagemPessoas);
+            entradaListagemPessoasCod = entradaListagemPessoas.nextInt();
+
+        }
+
+        switch (entradaListagemPessoasCod) {
+            case 1:
+                hospital.listarPessoas("Paciente");
+                break;
+            case 2:
+                hospital.listarPessoas("Enfermeiro");
+                break;
+            case 3:
+                hospital.listarPessoas("Médico");
+                break;
+            case 4:
+                hospital.listarPessoas("Todos");
+                break;
+
+            default:
+                System.out.println("opção inválida");
+        }
+
+        this.inicio();
+    }
+
+    private void relatorioPacientes() {
+
+        int relatorioPacienteCod = 0;
+        Scanner entradaRelatorios = new Scanner(System.in);
+        String [] relatorios = {
+                "============================================================",
+                "Escolha uma opção para impressão na tela: ",
+                "1 - Listagem de Pessoas",
+                "2 - Relatório dos Pacientes",
+                "3 - Relatório dos Médicos"
+        };
+
+        auxiliar.imprimirMenu(relatorios);
+        relatorioPacienteCod = entradaRelatorios.nextInt();
+        while (relatorioPacienteCod <1 || relatorioPacienteCod > 3){
+
+            System.out.println("Opção inválida\n");
+            auxiliar.imprimirMenu(relatorios);
+            relatorioPacienteCod = entradaRelatorios.nextInt();
+
+        }
+
+        switch (relatorioPacienteCod) {
+            case 1:
+                listagemPessoas();
+                break;
+            case 2:
+                relatorioPacientes();
+                break;
+            case 3:
+                relatorioMedicos();
+                break;
+
+            default:
+                System.out.println("opção inválida");
+        }
+    }
+
+    private void relatorioMedicos() {
+    }
 
 
 }
