@@ -1,6 +1,6 @@
 package usuarios;
 
-public final class Medico extends Pessoa{
+public final class Medico extends Pessoa implements Contavel{
     private String instituicaoEnsino;
     private String CRM;
     private String especializacaoClinica;
@@ -42,6 +42,10 @@ public final class Medico extends Pessoa{
 
     public int getContador() {
         return contador;
+    }
+    public void incrementaContador(){
+        this.contador+=1;
+
     }
 
     public String toString(){

@@ -4,7 +4,7 @@ import aplicacao.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Paciente extends Pessoa{
+public final class Paciente extends Pessoa implements Contavel{
     private String contatoEmergencia;
     private List<String> alergias = new ArrayList<>();
     private List<String> cuidados = new ArrayList<>();
@@ -94,7 +94,7 @@ public final class Paciente extends Pessoa{
         return exibir.toString();
     }
 
-    private void incrementaContador(){
+    public void incrementaContador(){
         this.contador+=1;
 
     }
