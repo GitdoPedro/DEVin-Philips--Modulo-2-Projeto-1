@@ -38,7 +38,7 @@ public class Telas {
                         atendimentoMedico();
                         break;
                     case 5:
-                        atualizacaoStatusPaciente();
+                        atualizacaoStatusPaciente(false);
                         break;
                     case 6:
                         relatorios();
@@ -79,7 +79,7 @@ public class Telas {
     }
 
     private String[] cadastroPessoa(String funcao){
-
+        boolean genero = true;
         Scanner entradaDados = new Scanner(System.in)        ;
 
         String [] cadastro = {
@@ -93,8 +93,21 @@ public class Telas {
         System.out.print("Nome completo: ");
         pessoa[0] = entradaDados.nextLine();
 
-        System.out.print("Gênero: ");
-        pessoa[1] = entradaDados.next();
+        System.out.print("Gênero [M/F]: ");
+
+        while (genero) {
+            String alergia = entradaDados.next().toUpperCase();
+            if (alergia.equals("M")) {
+                pessoa[1] = entradaDados.next();
+                genero = false;
+            } else if (alergia.equals("F")) {
+                pessoa[1] = entradaDados.next();
+                genero = false;
+            } else {
+                System.out.println("Valor incorreto. Favor preencher M ou F");
+
+            }
+        }
 
         System.out.print("Data de Nascimento: ");
         pessoa[2] = entradaDados.next();
@@ -171,7 +184,7 @@ public class Telas {
 
 
         }
-        statusAtendimento = auxiliar.selecionaStatusPaciente(false);
+        statusAtendimento = auxiliar.selecionaStatusPaciente(false,false);
 
         this.pessoa = new Paciente(
                 auxiliar.identificador,
@@ -344,15 +357,38 @@ public class Telas {
     }
 
     private void atendimentoMedico () {
-        System.out.println("Em construção");
-        this.inicio();
+        int entradaBuscaMedicoCod = 0;
+        Scanner entradaBuscaMedico = new Scanner(System.in);
+        String [] realizaAtendimento = {
+                "============================================================",
+                "Bem vindo ao sistema de realização de atendimento médico",
+                "Digite o id do médico: "
+        };
 
+        auxiliar.imprimirMenu(realizaAtendimento);
+        entradaBuscaMedicoCod = entradaBuscaMedico.nextInt();
+        while (entradaBuscaMedicoCod <0){
 
+            System.out.println("Opção inválida\n");
+            auxiliar.imprimirMenu(realizaAtendimento);
+            entradaBuscaMedicoCod = entradaBuscaMedico.nextInt();
 
+        }
+
+        if (hospital.buscarMedico(entradaBuscaMedicoCod) != null ){
+            String nome = hospital.buscarMedico(entradaBuscaMedicoCod).getNomeCompleto();
+            System.out.println("Médico : "+nome);
+            hospital.buscarMedico(entradaBuscaMedicoCod).incrementaContador();
+            this.atualizacaoStatusPaciente(true);
+            this.inicio();
+        }else{
+            System.out.println("Médico não encontrado!");
+            this.atendimentoMedico();
+        }
 
     }
 
-    private void atualizacaoStatusPaciente () {
+    private void atualizacaoStatusPaciente (boolean atendimento) {
         int entradaBuscaPessoaCod = 0;
         Scanner entradaBuscaPessoa = new Scanner(System.in);
         String [] buscaPessoa = {
@@ -370,15 +406,26 @@ public class Telas {
 
         }
 
-        if (hospital.buscarPaciente(entradaBuscaPessoaCod) != null ){
+        if (hospital.buscarPaciente(entradaBuscaPessoaCod) != null && !atendimento) {
+            String nome = hospital.buscarPaciente(entradaBuscaPessoaCod).getNomeCompleto();
+            System.out.println("Paciente: " + nome);
+            hospital.buscarPaciente(entradaBuscaPessoaCod).
+                    atualizaStatusAtendimento(auxiliar.selecionaStatusPaciente(true, false));
+            hospital.buscarPaciente(entradaBuscaPessoaCod).incrementaContador();
+            this.inicio();
+        }else if(hospital.buscarPaciente(entradaBuscaPessoaCod) != null && atendimento){
+            System.out.println("Consulta cadastrada com sucesso!");
             String nome = hospital.buscarPaciente(entradaBuscaPessoaCod).getNomeCompleto();
             System.out.println("Paciente: "+nome);
-            hospital.buscarPaciente(entradaBuscaPessoaCod).atualizaStatusAtendimento(auxiliar.selecionaStatusPaciente(true));
-            System.out.println(hospital.buscarPaciente(entradaBuscaPessoaCod).toString());
+            hospital.buscarPaciente(entradaBuscaPessoaCod).
+                    atualizaStatusAtendimento(auxiliar.selecionaStatusPaciente(true,true));
             this.inicio();
-        }else{
+
+        }else if(hospital.buscarPaciente(entradaBuscaPessoaCod) != null){
             System.out.println("Paciente não encontrado!");
-            this.atualizacaoStatusPaciente();
+            if(atendimento){this.atualizacaoStatusPaciente(true);}
+            else {this.atualizacaoStatusPaciente(false);}
+
         }
 
     }

@@ -76,7 +76,7 @@ public class Auxiliar {
         this.identificador +=1;
     }
 
-    public String selecionaStatusPaciente(boolean alteracao){
+    public String selecionaStatusPaciente(boolean alteracao, boolean atendimento){
         String msgAlteracao = "Status de atendimento atualizado com sucesso!\n";
         Scanner entrada = new Scanner(System.in);
         String[] menuStatusAtendimento = {
@@ -88,31 +88,34 @@ public class Auxiliar {
                 "4 - Não Atendido\n"
         };
 
-
-        imprimirMenu(menuStatusAtendimento);
-        int statusAtendimentoCod = entrada.nextInt();
-        while (statusAtendimentoCod < 1 || statusAtendimentoCod > 4) {
-
-            System.out.println("Opção inválida\n");
+        if(atendimento){
+            return "Em Atendimento";
+        }else {
             imprimirMenu(menuStatusAtendimento);
-            statusAtendimentoCod = entrada.nextInt();
+            int statusAtendimentoCod = entrada.nextInt();
+            while (statusAtendimentoCod < 1 || statusAtendimentoCod > 4) {
 
+                System.out.println("Opção inválida\n");
+                imprimirMenu(menuStatusAtendimento);
+                statusAtendimentoCod = entrada.nextInt();
+
+            }
+            if(alteracao){System.out.println(msgAlteracao);};
+
+                switch (statusAtendimentoCod) {
+                    case 1:
+                        return "Aguardando Atendimento";
+                    case 2:
+                        return "Em Atendimento";
+                    case 3:
+                        return "Atendido";
+                    case 4:
+                        return "Não Atendido";
+                    default:
+                        return "opção inválida";
+
+                }
+            }
         }
-        if(alteracao){System.out.println(msgAlteracao);};
-        switch (statusAtendimentoCod) {
-            case 1:
-                return "Aguardando Atendimento";
-            case 2:
-                return "Em Atendimento";
-            case 3:
-                return "Atendido";
-            case 4:
-                return "Não Atendido";
-            default:
-                return "opção inválida";
-
-        }
-
-    }
 
 }

@@ -259,6 +259,15 @@ public class Hospital {
         return null;
     }
 
+    public Medico buscarMedico (int id){
+        for(Medico medico : this.medicos){
+            if (medico.getId() == id){
+                return medico;
+            }
+        }
+        return null;
+    }
+
 
 
 }
