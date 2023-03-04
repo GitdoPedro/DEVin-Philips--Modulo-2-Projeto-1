@@ -1,11 +1,15 @@
 package relatorios;
 
+import aplicacao.Auxiliar;
 import usuarios.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Hospital {
+
+    Auxiliar auxiliar  = new Auxiliar();
     private List<Paciente>   pacientes   = new ArrayList<>();
     private List<Enfermeiro> enfermeiros = new ArrayList<>();
     private List<Medico>     medicos     = new ArrayList<>();
@@ -245,5 +249,16 @@ public class Hospital {
 
 
     }
+
+    public Paciente buscarPaciente (int id){
+        for(Paciente paciente : this.pacientes){
+            if (paciente.getId() == id){
+                return paciente;
+            }
+        }
+        return null;
+    }
+
+
 
 }

@@ -99,8 +99,8 @@ public final class Paciente extends Pessoa implements Contavel{
 
     }
 
-    private void atualizaStatusAtendimento(){
-        this.statusAtendimento =  auxiliar.selecionaStatusPaciente(true);
+    public void atualizaStatusAtendimento(String status){
+        this.statusAtendimento =  status;
     }
 
 }

@@ -1,7 +1,7 @@
 package aplicacao;
 
 import usuarios.*;
-import relatorios.Hospital;
+import relatorios.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -344,10 +344,42 @@ public class Telas {
     }
 
     private void atendimentoMedico () {
+        System.out.println("Em construção");
+        this.inicio();
+
+
+
 
     }
 
     private void atualizacaoStatusPaciente () {
+        int entradaBuscaPessoaCod = 0;
+        Scanner entradaBuscaPessoa = new Scanner(System.in);
+        String [] buscaPessoa = {
+                "============================================================",
+                "Digite o id do paciente: "
+        };
+
+        auxiliar.imprimirMenu(buscaPessoa);
+        entradaBuscaPessoaCod = entradaBuscaPessoa.nextInt();
+        while (entradaBuscaPessoaCod <0){
+
+            System.out.println("Opção inválida\n");
+            auxiliar.imprimirMenu(buscaPessoa);
+            entradaBuscaPessoaCod = entradaBuscaPessoa.nextInt();
+
+        }
+
+        if (hospital.buscarPaciente(entradaBuscaPessoaCod) != null ){
+            String nome = hospital.buscarPaciente(entradaBuscaPessoaCod).getNomeCompleto();
+            System.out.println("Paciente: "+nome);
+            hospital.buscarPaciente(entradaBuscaPessoaCod).atualizaStatusAtendimento(auxiliar.selecionaStatusPaciente(true));
+            System.out.println(hospital.buscarPaciente(entradaBuscaPessoaCod).toString());
+            this.inicio();
+        }else{
+            System.out.println("Paciente não encontrado!");
+            this.atualizacaoStatusPaciente();
+        }
 
     }
 

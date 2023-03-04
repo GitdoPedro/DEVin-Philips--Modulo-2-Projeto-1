@@ -87,6 +87,8 @@ public class Auxiliar {
                 "3 - Atendido",
                 "4 - Não Atendido\n"
         };
+
+
         imprimirMenu(menuStatusAtendimento);
         int statusAtendimentoCod = entrada.nextInt();
         while (statusAtendimentoCod < 1 || statusAtendimentoCod > 4) {
