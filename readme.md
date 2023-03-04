@@ -47,7 +47,9 @@ O usuário deve escolher quais registros apresentar de acordo com as opções de
 - Ortopedia
 - Todos
 
+## Modelo de Dados
 
+![](./src/classes.png)
 
 
 
